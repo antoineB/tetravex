@@ -49,37 +49,42 @@ class Grid(nbRows: Int, nbColumns: Int, n: String) {
 	println("empty")
 	var res = true
 	
-	if (row > 0)
-	  list(row -1)(colum) match {
-	    case Tile(top,left,right,bottom,_) =>
-	      if (top != t.bottom)
-		res = res && false
-	    case EmptyTile(_) => res = res && true
-	  }
+	if (row > 0) 
+	  if (list(row -1)(colum) ne t)
+	    list(row -1)(colum) match {
+	      case Tile(top,left,right,bottom,_) =>
+		if (t.top != bottom)
+		  res = res && false
+	      case EmptyTile(_) => res = res && true
+	    }
+	
 
 	if (row < rows - 1)
-	  list(row +1)(colum) match {
-	    case Tile(top,left,right,bottom,_) =>
-	      if (bottom != t.top)
-		res = res && false
-	    case EmptyTile(_) => res = res && true
-	  } 
+	  if (list(row +1)(colum) ne t)
+	    list(row +1)(colum) match {
+	      case Tile(top,left,right,bottom,_) =>
+		if (t.bottom != top)
+		  res = res && false
+	      case EmptyTile(_) => res = res && true
+	    } 
        
 	if (colum > 0)
-	  list(row)(colum -1) match {
-	    case Tile(top,left,right,bottom,_) =>
-	      if (right != t.left)
-		res = res && false
-	    case EmptyTile(_) => res = res && true
-	  } 
+	  if (list(row)(colum -1) ne t)
+	    list(row)(colum -1) match {
+	      case Tile(top,left,right,bottom,_) =>
+		if (right != t.left)
+		  res = res && false
+	      case EmptyTile(_) => res = res && true
+	    } 
 
 	if (colum < columns - 1)
-	  list(row)(colum +1) match {
-	    case Tile(top,left,right,bottom,_) =>
-	      if (left != t.right)
-		res = res && false
-	    case EmptyTile(_) => res = res && true
-	  }
+	  if (list(row)(colum +1) ne t)
+	    list(row)(colum +1) match {
+	      case Tile(top,left,right,bottom,_) =>
+		if (left != t.right)
+		  res = res && false
+	      case EmptyTile(_) => res = res && true
+	    }
 
 	if (!res) return false
 
