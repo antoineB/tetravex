@@ -13,11 +13,22 @@ object Model {
   var left: Grid = null
   var right: Grid = null
 
+  def newGame(n: Int) {
+    val g = Grid.generate(n,n, "right")
+    val r = g.rand
+    View.init(r)
+    Model.init(g, r)
+  }
+
   def init(g: Grid, r: Grid) {
     goal = g
     right = r
     left = Grid.generateEmpty(g.rows, g.columns, "left")
     numberPlaced = g.rows * g.columns
+    
+    currentGrid = ""
+    currentPos = null
+    current = null
   }
 
   def get(pos: (Int, Int), name: String): Tile = {
@@ -70,8 +81,10 @@ object Model {
 	currentPos = null
 	current = null
 
-	if (numberPlaced == 0)
+	if (numberPlaced == 0) {
 	  println("game is win") //quit game
+	  newGame(3)
+	}
 	println(right)
       }
     }

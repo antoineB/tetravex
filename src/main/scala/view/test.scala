@@ -15,10 +15,9 @@ object FirstSwingApp extends SimpleSwingApplication {
   
   def top = new MainFrame {
     title = "First Swing App"
-    val g = Grid.generate(3,3, "right")
-    val r = g.rand
-    View.init(r)
-    Model.init(g, r)
+    
+    Model.newGame(3)
+
     contents = View
 
   }
