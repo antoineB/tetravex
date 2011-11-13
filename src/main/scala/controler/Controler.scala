@@ -1,4 +1,8 @@
+package tetravex.controler
+
 import scala.swing._
+
+import tetravex.model.Model
 
 object Controler {
 

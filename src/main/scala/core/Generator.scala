@@ -1,3 +1,5 @@
+package tetravex.core
+
 import scala.util.Random
 
 object Generator {

@@ -1,5 +1,10 @@
+package tetravex.view
+
 import scala.swing._
 import scala.swing.event._
+
+import tetravex.core.{Grid, Tile}
+
 
 object ViewGrid {
   def apply(g: Grid) = new ViewGrid(g)

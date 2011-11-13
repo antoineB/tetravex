@@ -1,3 +1,5 @@
+package tetravex.core
+
 sealed abstract class AbsTile
 
 case class Tile(top: Int, left: Int, right: Int, bottom: Int, id: Int) extends AbsTile{

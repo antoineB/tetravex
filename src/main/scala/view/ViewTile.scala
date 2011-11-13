@@ -1,6 +1,12 @@
+package tetravex.view
+
 import scala.swing._
 import scala.swing.event._
 import javax.swing.border.LineBorder
+
+import tetravex.core.{Tile, AbsTile, EmptyTile}
+import tetravex.controler.Controler
+
 
 class ViewTile(pos: (Int, Int), grid: String) extends Panel {
   val postiion = pos

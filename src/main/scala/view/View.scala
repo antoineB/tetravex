@@ -1,5 +1,10 @@
+package tetravex.view
+
 import scala.swing._
 import scala.swing.event._
+
+import tetravex.core.{Grid, Tile}
+
 
 object View extends BorderPanel{
   var left: ViewGrid = null

@@ -1,3 +1,8 @@
+package tetravex.model
+
+import tetravex.core._
+import tetravex.view.View
+
 object Model {
   var current: Tile = null
   var currentPos: (Int, Int) = null

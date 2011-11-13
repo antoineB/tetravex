@@ -1,5 +1,8 @@
+package tetravex.core
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
+
 
 class Grid(nbRows: Int, nbColumns: Int, n: String) {
   val name = n
@@ -125,6 +128,7 @@ object Grid {
       for (c <- 1 until columns)
 	g.list(0)(c) = Tile.generate(g.list(0)(c-1) match {
 	  case t @ Tile(_,_,_,_,_) => t.right
+	  case _ => throw new Exception("not empty tile should be find")
 	})
      
       
@@ -132,13 +136,16 @@ object Grid {
       for (r <- 1 until rows) {
 	g.list(r)(0) = Tile.generateTop(g.list(r-1)(0) match {
 	  case t @ Tile(_,_,_,_,_) => t.bottom
+  	  case _ => throw new Exception("not empty tile should be find")
 	})
 
 	for (c <- 1 until columns) {
 	  g.list(r)(c) = Tile.generate(g.list(r-1)(c) match {
 	    case t @ Tile(_,_,_,_,_) => t.bottom
+	    case _ => throw new Exception("not empty tile should be find")
 	  }, g.list(r)(c-1) match { 
 	    case t @ Tile(_,_,_,_,_) => t.right
+    	    case _ => throw new Exception("not empty tile should be find")
 	  })
 	}
       }
