@@ -13,7 +13,15 @@ object Model {
   var left: Grid = null
   var right: Grid = null
 
-  def newGame(n: Int) {
+  def newGame(n: Int, range: String) {
+    try { Generator.setRange(range) }
+    catch {
+      case e: Exception =>
+	View.errorMsg(e.getMessage())
+      return;
+    }
+
+
     val g = Grid.generate(n,n, "right")
     val r = g.rand
     View.init(r)
@@ -83,7 +91,7 @@ object Model {
 
 	if (numberPlaced == 0) {
 	  println("game is win") //quit game
-	  newGame(left.rows)
+	  newGame(left.rows, Generator.getRange)
 	}
 	println(right)
       }

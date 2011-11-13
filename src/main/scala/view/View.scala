@@ -19,6 +19,12 @@ object View extends BorderPanel{
     revalidate
   }
 
+  def errorMsg(s: String) {
+    layout(new Label(s)) = BorderPanel.Position.Center
+    
+    revalidate
+  }
+
   def select(pos: (Int, Int), gridName: String) {
     board.select(pos, gridName)
   }

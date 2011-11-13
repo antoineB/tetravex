@@ -10,8 +10,8 @@ object Controler {
     Model.click(pos, name)
   }
 
-  def buttonClick(nb: Int) {
-    Model.newGame(nb)
+  def buttonClick(nb: Int, range: String) {
+    Model.newGame(nb, range)
   }
 
 }

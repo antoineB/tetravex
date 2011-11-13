@@ -6,7 +6,7 @@ import scala.swing.event._
 import java.awt.Graphics2D
 
 import tetravex.model.Model
-import tetravex.core.Grid
+import tetravex.core.{Grid, Generator}
 
 //(capitalized-words-mode 't)
 
@@ -16,7 +16,7 @@ object FirstSwingApp extends SimpleSwingApplication {
   def top = new MainFrame {
     title = "First Swing App"
     
-    Model.newGame(3)
+    Model.newGame(3, Generator.defaultRange)
 
     contents = View
 

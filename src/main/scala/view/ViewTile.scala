@@ -4,7 +4,7 @@ import scala.swing._
 import scala.swing.event._
 import javax.swing.border.LineBorder
 
-import tetravex.core.{Tile, AbsTile, EmptyTile}
+import tetravex.core.{Tile, AbsTile, EmptyTile, Generator}
 import tetravex.controler.Controler
 
 
@@ -52,13 +52,13 @@ object ViewTile {
 	val m = 50//for x
 	val n = 50//for y
 	val fm = g.getFontMetrics()
-	g.setColor(numberToColor(t.left))
+	g.setColor(Generator.color(t.left))
 	g.fillPolygon(Array(0,m/2, 0, 0),Array(0,n/2, n, 0), 4)
-	g.setColor(numberToColor(t.top))
+	g.setColor(Generator.color(t.top))
 	g.fillPolygon(Array(0, m/2, m, 0),Array(0, n/2, 0, 0), 4)
-	g.setColor(numberToColor(t.right))
+	g.setColor(Generator.color(t.right))
 	g.fillPolygon(Array(m, m/2, m, m),Array(0, n/2, n, 0), 4)
-	g.setColor(numberToColor(t.bottom))
+	g.setColor(Generator.color(t.bottom))
 	g.fillPolygon(Array(0, m/2, m, 0),Array(n, n/2, n, n), 4)
 
 	g.setColor(java.awt.Color.BLACK)
