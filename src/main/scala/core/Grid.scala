@@ -47,46 +47,46 @@ class Grid(nbRows: Int, nbColumns: Int, n: String) {
 
   def goto(row: Int, colum: Int, t: Tile): Boolean =
     list(row)(colum) match {
-      case Tile(_,_,_,_,_) => false
-      case EmptyTile(id) => {
+      case Tile(_,_,_,_) => false
+      case EmptyTile() => {
 	println("empty")
 	var res = true
 	
 	if (row > 0) 
 	  if (list(row -1)(colum) ne t)
 	    list(row -1)(colum) match {
-	      case Tile(top,left,right,bottom,_) =>
+	      case Tile(top,left,right,bottom) =>
 		if (t.top != bottom)
 		  res = res && false
-	      case EmptyTile(_) => res = res && true
+	      case EmptyTile() => res = res && true
 	    }
 	
 
 	if (row < rows - 1)
 	  if (list(row +1)(colum) ne t)
 	    list(row +1)(colum) match {
-	      case Tile(top,left,right,bottom,_) =>
+	      case Tile(top,left,right,bottom) =>
 		if (t.bottom != top)
 		  res = res && false
-	      case EmptyTile(_) => res = res && true
+	      case EmptyTile() => res = res && true
 	    } 
        
 	if (colum > 0)
 	  if (list(row)(colum -1) ne t)
 	    list(row)(colum -1) match {
-	      case Tile(top,left,right,bottom,_) =>
+	      case Tile(top,left,right,bottom) =>
 		if (right != t.left)
 		  res = res && false
-	      case EmptyTile(_) => res = res && true
+	      case EmptyTile() => res = res && true
 	    } 
 
 	if (colum < columns - 1)
 	  if (list(row)(colum +1) ne t)
 	    list(row)(colum +1) match {
-	      case Tile(top,left,right,bottom,_) =>
+	      case Tile(top,left,right,bottom) =>
 		if (left != t.right)
 		  res = res && false
-	      case EmptyTile(_) => res = res && true
+	      case EmptyTile() => res = res && true
 	    }
 
 	if (!res) return false
@@ -100,8 +100,8 @@ class Grid(nbRows: Int, nbColumns: Int, n: String) {
 
   def gotoInc(row: Int, colum: Int, t: Tile): Boolean = {
     var b = list(row)(colum) match {
-      case Tile(_,_,_,_,_) => false
-      case EmptyTile(_) => true
+      case Tile(_,_,_,_) => false
+      case EmptyTile() => true
     }
     
     if (!b) return false
@@ -127,7 +127,7 @@ object Grid {
 
       for (c <- 1 until columns)
 	g.list(0)(c) = Tile.generate(g.list(0)(c-1) match {
-	  case t @ Tile(_,_,_,_,_) => t.right
+	  case t @ Tile(_,_,_,_) => t.right
 	  case _ => throw new Exception("not empty tile should be find")
 	})
      
@@ -135,16 +135,16 @@ object Grid {
     
       for (r <- 1 until rows) {
 	g.list(r)(0) = Tile.generateTop(g.list(r-1)(0) match {
-	  case t @ Tile(_,_,_,_,_) => t.bottom
+	  case t @ Tile(_,_,_,_) => t.bottom
   	  case _ => throw new Exception("not empty tile should be find")
 	})
 
 	for (c <- 1 until columns) {
 	  g.list(r)(c) = Tile.generate(g.list(r-1)(c) match {
-	    case t @ Tile(_,_,_,_,_) => t.bottom
+	    case t @ Tile(_,_,_,_) => t.bottom
 	    case _ => throw new Exception("not empty tile should be find")
 	  }, g.list(r)(c-1) match { 
-	    case t @ Tile(_,_,_,_,_) => t.right
+	    case t @ Tile(_,_,_,_) => t.right
     	    case _ => throw new Exception("not empty tile should be find")
 	  })
 	}

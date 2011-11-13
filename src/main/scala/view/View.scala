@@ -15,6 +15,8 @@ object View extends BorderPanel{
   def init(g: Grid) {
     board = new Board(g)
     layout(board) = BorderPanel.Position.Center
+    
+    revalidate
   }
 
   def select(pos: (Int, Int), gridName: String) {

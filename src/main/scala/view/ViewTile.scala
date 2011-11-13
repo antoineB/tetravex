@@ -81,8 +81,6 @@ object ViewTile {
 
       listenTo(mouse.clicks)
 
-      name = t.id.toString
-
       reactions += {
 	case e: MouseClicked =>
 	  Controler.click(p, gridName)
@@ -94,7 +92,6 @@ object ViewTile {
     new ViewTile(p, n) {
       preferredSize = new Dimension(50, 50)
       border = new LineBorder(java.awt.Color.BLACK, 2)
-      name = t.id.toString
 
       listenTo(mouse.clicks)
 

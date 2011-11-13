@@ -83,7 +83,7 @@ object Model {
 
 	if (numberPlaced == 0) {
 	  println("game is win") //quit game
-	  newGame(3)
+	  newGame(left.rows)
 	}
 	println(right)
       }
