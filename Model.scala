@@ -1,3 +1,5 @@
+//BUG dans le decompte des points
+
 object Model {
   var current: Tile = null
   var currentPos: (Int, Int) = null

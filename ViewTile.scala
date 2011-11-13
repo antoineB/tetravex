@@ -2,7 +2,7 @@ import scala.swing._
 import scala.swing.event._
 import javax.swing.border.LineBorder
 
-class ViewTile(pos: (Int, Int), grid: String) extends BorderPanel {
+class ViewTile(pos: (Int, Int), grid: String) extends Panel {
   val postiion = pos
   val gridName = grid
 
@@ -42,28 +42,35 @@ object ViewTile {
     new ViewTile(p, n) {
       preferredSize = new Dimension(50, 50)
 
-      val to = new Label(t.top.toString) {
-	opaque = true
-	background = numberToColor(t.top)
+      override def paint(g: Graphics2D) {
+	val m = 50//for x
+	val n = 50//for y
+	val fm = g.getFontMetrics()
+	g.setColor(numberToColor(t.left))
+	g.fillPolygon(Array(0,m/2, 0, 0),Array(0,n/2, n, 0), 4)
+	g.setColor(numberToColor(t.top))
+	g.fillPolygon(Array(0, m/2, m, 0),Array(0, n/2, 0, 0), 4)
+	g.setColor(numberToColor(t.right))
+	g.fillPolygon(Array(m, m/2, m, m),Array(0, n/2, n, 0), 4)
+	g.setColor(numberToColor(t.bottom))
+	g.fillPolygon(Array(0, m/2, m, 0),Array(n, n/2, n, n), 4)
+
+	g.setColor(java.awt.Color.BLACK)
+	g.drawLine(0, 0, m, n)
+	g.drawLine(0, n, m, 0)
+
+	g.drawString(t.left.toString, m/6 - fm.stringWidth(t.left.toString)/2, n/2 + fm.getHeight()/2)
+	g.drawString(t.top.toString, m/2 - fm.stringWidth(t.top.toString)/2, n/6 + fm.getHeight()/2)
+	g.drawString(t.right.toString, (m/6) * 5 - fm.stringWidth(t.right.toString)/2, n/2 + fm.getHeight()/2)
+	g.drawString(t.bottom.toString, m/2 - fm.stringWidth(t.bottom.toString)/2, (n/6) * 5 + fm.getHeight()/2)
+
+	g.setColor(border match { case lb: LineBorder => lb.getLineColor(); case _ => java.awt.Color.BLACK})
+	g.drawPolygon(Array(0, m, m, 0, 0), Array(0, 0, n, n, 0), 5)
+	g.drawPolygon(Array(1, m-1, m-1, 1, 1), Array(1, 1, n-1, n-1, 1), 5)
       }
-      val b = new Label(t.bottom.toString) {
-	opaque = true
-	background = numberToColor(t.bottom)
-      }
-      val r = new Label(t.right.toString) {
-	opaque = true
-	background = numberToColor(t.right)
-      }
-      val l = new Label(t.left.toString) {
-	opaque = true
-	background = numberToColor(t.left)
-      }
-      
-      layout(to) = BorderPanel.Position.North
-      layout(b) = BorderPanel.Position.South
-      layout(r) = BorderPanel.Position.East
-      layout(l) = BorderPanel.Position.West
-      
+
+    
+     
       border = new LineBorder(java.awt.Color.BLACK, 2)
 
       listenTo(mouse.clicks)
