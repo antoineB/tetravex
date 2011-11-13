@@ -1,5 +1,3 @@
-//BUG dans le decompte des points
-
 object Model {
   var current: Tile = null
   var currentPos: (Int, Int) = null
@@ -58,13 +56,14 @@ object Model {
       if (left.goto(pos._1, pos._2, current)) {
 	if (currentGrid == "left")
 	  left.drop(currentPos._1, currentPos._2)
-	else
+	else {
 	  right.drop(currentPos._1, currentPos._2)
+	  numberPlaced = numberPlaced - 1
+	}
 	View.move((currentPos, currentGrid), (pos, name), current)
 	currentGrid = null
 	currentPos = null
 	current = null
-	numberPlaced = numberPlaced - 1
 
 	if (numberPlaced == 0)
 	  println("game is win") //quit game
@@ -73,15 +72,16 @@ object Model {
     }
     else {
       if (right.gotoInc(pos._1, pos._2, current)) {
-	if (currentGrid == "left")
+	if (currentGrid == "left") {
 	  left.drop(currentPos._1, currentPos._2)
+  	  numberPlaced = numberPlaced + 1
+	}
 	else
 	  right.drop(currentPos._1, currentPos._2)
 	View.move((currentPos, currentGrid), (pos, name), current)
 	currentGrid = null
 	currentPos = null
 	current = null
-	numberPlaced = numberPlaced + 1
       }
     }
   }
