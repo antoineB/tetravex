@@ -26,6 +26,21 @@ object Generator {
 
   def next() = range(r.nextInt.abs % range.size)
 
-  def color(c: Char) = new Color((16777216 / range.size) * (range.indexOf(c) + 1))
+//  def color(c: Char) = new Color((16777216 / range.size) * (range.indexOf(c) + 1))
+
+  def color(c: Char) = {
+    val v: Int = 1785 / range.size * (range.indexOf(c) + 1)
+
+    v match {
+      case i: Int if (i <= 255) => new Color(255, 0, v)
+      case i: Int if (i <= 510) => new Color(255 - (v % 256), 0, 255)
+      case i: Int if (i <= 765) => new Color(0, v % 256, 255)
+      case i: Int if (i <= 1020) => new Color(0, 255, 255 - (v % 256))
+      case i: Int if (i <= 1275) => new Color(v % 256, 255, 0)
+      case i: Int if (i <= 1530) => new Color(255, 255 - (v % 256), 0)
+      case _ => new Color(v % 256, v % 256, v % 256)
+      //      case v <= 1785 =>
+    }
+  }
 
 }

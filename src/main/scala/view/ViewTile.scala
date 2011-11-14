@@ -3,6 +3,7 @@ package tetravex.view
 import scala.swing._
 import scala.swing.event._
 import javax.swing.border.LineBorder
+import java.awt.RenderingHints
 
 import tetravex.core.{Tile, AbsTile, EmptyTile, Generator}
 import tetravex.controler.Controler
@@ -49,9 +50,14 @@ object ViewTile {
       preferredSize = new Dimension(50, 50)
 
       override def paint(g: Graphics2D) {
-	val m = 50//for x
-	val n = 50//for y
+	val m = size.getWidth().toInt//for x
+	val n = size.getHeight().toInt//for y
 	val fm = g.getFontMetrics()
+
+	g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
+	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+
 	g.setColor(Generator.color(t.left))
 	g.fillPolygon(Array(0,m/2, 0, 0),Array(0,n/2, n, 0), 4)
 	g.setColor(Generator.color(t.top))
