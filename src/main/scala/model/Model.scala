@@ -53,7 +53,6 @@ object Model {
   }
 
   def select(pos: (Int, Int), name: String) {
-    println("select " + pos._1 + " " + pos._2)
     currentGrid = name
     currentPos = pos
     current = get(pos, name)
@@ -73,10 +72,7 @@ object Model {
   }
 
   def move(pos: (Int, Int), name: String) {
-    println("move")
     if (name == "left") {
-      println("move left to " + pos._1 + " " + pos._2)
-      println(left)
       if (left.goto(pos._1, pos._2, current)) {
 	if (currentGrid == "left")
 	  left.drop(currentPos._1, currentPos._2)
@@ -93,7 +89,6 @@ object Model {
 	  println("game is win") //quit game
 	  newGame(left.rows, Generator.getRange)
 	}
-	println(right)
       }
     }
     else {

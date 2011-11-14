@@ -4,6 +4,8 @@ import scala.swing._
 import scala.swing.event._
 import javax.swing.border.LineBorder
 import java.awt.RenderingHints
+import java.awt.Font
+import java.awt.GraphicsEnvironment
 
 import tetravex.core.{Tile, AbsTile, EmptyTile, Generator}
 import tetravex.controler.Controler
@@ -25,19 +27,6 @@ class ViewTile(pos: (Int, Int), grid: String) extends Panel {
 
 object ViewTile {
 
-  def numberToColor(i: Int) =  i match {
-    case 0 => java.awt.Color.RED
-    case 1 => java.awt.Color.BLUE
-    case 2 => java.awt.Color.GREEN
-    case 3 => java.awt.Color.YELLOW
-    case 4 => java.awt.Color.WHITE
-    case 5 => java.awt.Color.ORANGE
-    case 6 => java.awt.Color.PINK
-    case 7 => java.awt.Color.MAGENTA
-    case 8 => java.awt.Color.CYAN
-    case _ => java.awt.Color.DARK_GRAY
-  }  
-
   def draw(t: AbsTile, p: (Int, Int), n: String) = {
     t match {
       case ti:Tile => drawTile(ti, p, n)
@@ -49,7 +38,11 @@ object ViewTile {
     new ViewTile(p, n) {
       preferredSize = new Dimension(50, 50)
 
+      font = new Font("Monospaced", Font.PLAIN, 22)
+
       override def paint(g: Graphics2D) {
+	g.setFont(font)
+
 	val m = size.getWidth().toInt//for x
 	val n = size.getHeight().toInt//for y
 	val fm = g.getFontMetrics()
@@ -73,8 +66,8 @@ object ViewTile {
 
 	g.drawString(t.left.toString, m/6 - fm.stringWidth(t.left.toString)/2, n/2 + fm.getHeight()/2)
 	g.drawString(t.top.toString, m/2 - fm.stringWidth(t.top.toString)/2, n/6 + fm.getHeight()/2)
-	g.drawString(t.right.toString, (m/6) * 5 - fm.stringWidth(t.right.toString)/2, n/2 + fm.getHeight()/2)
-	g.drawString(t.bottom.toString, m/2 - fm.stringWidth(t.bottom.toString)/2, (n/6) * 5 + fm.getHeight()/2)
+	g.drawString(t.right.toString, (m/6) * 5 - fm.stringWidth(t.right.toString)/3, n/2 + fm.getHeight()/2)
+	g.drawString(t.bottom.toString, m/2 - fm.stringWidth(t.bottom.toString)/2, (n/4) * 3 + fm.getHeight()/2)
 
 	g.setColor(border match { case lb: LineBorder => lb.getLineColor(); case _ => java.awt.Color.BLACK})
 	g.drawPolygon(Array(0, m, m, 0, 0), Array(0, 0, n, n, 0), 5)

@@ -49,7 +49,6 @@ class Grid(nbRows: Int, nbColumns: Int, n: String) {
     list(row)(colum) match {
       case Tile(_,_,_,_) => false
       case EmptyTile() => {
-	println("empty")
 	var res = true
 	
 	if (row > 0) 
@@ -92,8 +91,6 @@ class Grid(nbRows: Int, nbColumns: Int, n: String) {
 	if (!res) return false
 
 	list(row)(colum) = t
-	println(this)
-
 	true
       }
     }
