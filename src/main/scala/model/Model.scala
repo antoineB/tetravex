@@ -1,17 +1,27 @@
 package tetravex.model
 
+import javax.swing.Timer
+import java.awt.event.{ActionListener, ActionEvent}
+
 import tetravex.core._
 import tetravex.view.View
+
 
 object Model {
   var current: Tile = null
   var currentPos: (Int, Int) = null
   var currentGrid: String = ""
 
+  var timeCount = 0
+  var timer: Timer = null
   var numberPlaced = 0
   var goal: Grid = null
   var left: Grid = null
   var right: Grid = null
+
+  def close() {
+    timer.stop()
+  }
 
   def newGame(n: Int, range: String) {
     try { Generator.setRange(range) }
@@ -26,6 +36,17 @@ object Model {
     val r = g.rand
     View.init(r)
     Model.init(g, r)
+   
+    val taskPerformer: ActionListener = new ActionListener() {
+      def actionPerformed(evt: ActionEvent) {
+	timeCount = timeCount + 1
+	View.updateTime("%02d:%02d"  format(timeCount / 60, timeCount % 60))
+      }
+    }
+    if (timer != null) timer.stop()
+    timer = new Timer(1000, taskPerformer)
+    timeCount = 0
+    timer.start();
   }
 
   def init(g: Grid, r: Grid) {

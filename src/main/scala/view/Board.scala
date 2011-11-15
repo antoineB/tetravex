@@ -9,12 +9,16 @@ import tetravex.core.{Grid, Tile}
 class Board(g: Grid) extends BoxPanel(Orientation.Horizontal) {
   var left: ViewGrid = null
   var right: ViewGrid = null
-  
+  var time: Label = null
+
   left = ViewGrid(Grid.generateEmpty(g.rows, g.columns, "left"))
   right = ViewGrid(g)
-  
+  time = new Label{
+    preferredSize = new Dimension(100, 20)
+  }
+
   contents += left
-  contents += new Panel { preferredSize = new Dimension(20, 20) }
+  contents += time
   contents += right
 
   def move(from: ((Int, Int), String), to: ((Int, Int), String), t:Tile) {
@@ -31,6 +35,12 @@ class Board(g: Grid) extends BoxPanel(Orientation.Horizontal) {
 
     revalidate
     repaint
+  }
+
+  def updateTime(s: String) {
+    time.text = s
+    time.repaint
+    time.revalidate
   }
 
   def select(pos: (Int, Int), gridName: String) {

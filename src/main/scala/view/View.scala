@@ -36,4 +36,8 @@ object View extends BorderPanel{
   def move(from: ((Int, Int), String), to: ((Int, Int), String), t: Tile) {
     board.move(from, to, t)
   }
+
+  def updateTime(s: String) {
+    board.updateTime(s)
+  }
 }
