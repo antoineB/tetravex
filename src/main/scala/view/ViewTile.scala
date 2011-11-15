@@ -12,8 +12,8 @@ import tetravex.controler.Controler
 
 
 class ViewTile(pos: (Int, Int), grid: String) extends Panel {
-  val postiion = pos
-  val gridName = grid
+  private val postiion = pos
+  private val gridName = grid
 
   def select {
     border = new LineBorder(java.awt.Color.RED, 2)
@@ -74,8 +74,6 @@ object ViewTile {
 	g.drawPolygon(Array(1, m-1, m-1, 1, 1), Array(1, 1, n-1, n-1, 1), 5)
       }
 
-    
-     
       border = new LineBorder(java.awt.Color.BLACK, 2)
 
       listenTo(mouse.clicks)
@@ -98,7 +96,6 @@ object ViewTile {
 	case e: MouseClicked =>
 	  Controler.click(p, gridName)
       }
-
     }
   }
 

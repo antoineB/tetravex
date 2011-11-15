@@ -7,8 +7,8 @@ import tetravex.core.{Grid, Tile}
 
 
 object View extends BorderPanel{
-  var board: Board = null
-  var menu: Menu = new Menu()
+  private var board: Board = null
+  private var menu: Menu = new Menu()
 
   layout(menu) = BorderPanel.Position.North
 

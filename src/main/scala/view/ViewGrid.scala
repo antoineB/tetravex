@@ -15,7 +15,7 @@ class ViewGrid(g: Grid) extends GridPanel(g.rows, g.columns) {
 
   for (r <- 0 until g.rows)
     for (c <- 0 until g.columns)
-      contents += ViewTile.draw(g.list(r)(c), (r,c), g.name)
+      contents += ViewTile.draw(g.matrix(r)(c), (r,c), g.name)
 
   def clear(row: Int, column: Int) {
     contents(row * columns + column) = ViewTile.drawEmpty(Tile.generateEmpty, (row,column), g.name)

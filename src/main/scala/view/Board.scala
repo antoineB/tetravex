@@ -7,9 +7,9 @@ import tetravex.core.{Grid, Tile}
 
 
 class Board(g: Grid) extends BoxPanel(Orientation.Horizontal) {
-  var left: ViewGrid = null
-  var right: ViewGrid = null
-  var time: Label = null
+  private var left: ViewGrid = null
+  private var right: ViewGrid = null
+  private var time: Label = null
 
   left = ViewGrid(Grid.generateEmpty(g.rows, g.columns, "left"))
   right = ViewGrid(g)

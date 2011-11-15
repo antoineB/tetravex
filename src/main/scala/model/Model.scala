@@ -8,16 +8,16 @@ import tetravex.view.View
 
 
 object Model {
-  var current: Tile = null
-  var currentPos: (Int, Int) = null
-  var currentGrid: String = ""
+  private var current: Tile = null
+  private var currentPos: (Int, Int) = null
+  private var currentGrid: String = ""
 
-  var timeCount = 0
-  var timer: Timer = null
-  var numberPlaced = 0
-  var goal: Grid = null
-  var left: Grid = null
-  var right: Grid = null
+  private var timeCount = 0
+  private var timer: Timer = null
+  private var numberPlaced = 0
+  private var goal: Grid = null
+  private var left: Grid = null
+  private var right: Grid = null
 
   def close() {
     timer.stop()
@@ -31,7 +31,6 @@ object Model {
       return;
     }
 
-
     val g = Grid.generate(n,n, "right")
     val r = g.rand
     View.init(r)
@@ -40,7 +39,7 @@ object Model {
     val taskPerformer: ActionListener = new ActionListener() {
       def actionPerformed(evt: ActionEvent) {
 	timeCount = timeCount + 1
-	View.updateTime("%02d:%02d"  format(timeCount / 60, timeCount % 60))
+	View.updateTime(timeString)
       }
     }
     if (timer != null) timer.stop()
@@ -49,7 +48,9 @@ object Model {
     timer.start();
   }
 
-  def init(g: Grid, r: Grid) {
+  private def timeString = "%02d:%02d"  format(timeCount / 60, timeCount % 60)
+
+  private def init(g: Grid, r: Grid) {
     goal = g
     right = r
     left = Grid.generateEmpty(g.rows, g.columns, "left")
@@ -62,12 +63,12 @@ object Model {
 
   def get(pos: (Int, Int), name: String): Tile = {
     if (name == "left")
-      left.list(pos._1)(pos._2) match { 
+      left.matrix(pos._1)(pos._2) match { 
 	case t: Tile => t
 	case _ => null
       }
     else
-      right.list(pos._1)(pos._2) match { 
+      right.matrix(pos._1)(pos._2) match { 
 	case t: Tile => t
 	case _ => null
       }
@@ -86,7 +87,6 @@ object Model {
     currentGrid = null
     currentPos = null
     current = null
-
 
     //view inform
     View.unselect(pos, name)
@@ -107,7 +107,7 @@ object Model {
 	current = null
 
 	if (numberPlaced == 0) {
-	  println("game is win") //quit game
+	  println("game is win " + timeString)
 	  newGame(left.rows, Generator.getRange)
 	}
       }

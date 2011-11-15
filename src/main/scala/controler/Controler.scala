@@ -4,8 +4,8 @@ import scala.swing._
 
 import tetravex.model.Model
 
-object Controler {
 
+object Controler {
   def click(pos: (Int, Int), name: String) {
     Model.click(pos, name)
   }
