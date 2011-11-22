@@ -34,13 +34,10 @@ class Board(g: Grid) extends BoxPanel(Orientation.Horizontal) {
       right.set(to._1._1, to._1._2, tile)
 
     revalidate
-    repaint
   }
 
   def updateTime(s: String) {
     time.text = s
-    time.repaint
-    time.revalidate
   }
 
   def select(pos: (Int, Int), gridName: String) {
